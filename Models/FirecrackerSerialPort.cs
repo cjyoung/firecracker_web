@@ -19,28 +19,6 @@ using UnmanagedPorts;
 
 //REFERENCE: http://www.linuxha.com/common/cm17a.html
 
-
-
-
-    //Function			    Binary Value	Hex Value
-    //All Units Off		    	0000	    	0
-    //All Lights On		    	0001            1
-    //On			        	0010	    	2
-    //Off		                0011	    	3
-    //Dim		    	    	0100	    	4
-    //Bright			    	0101		    5
-    //All Lights Off	    	0110		    6
-    //Extended Code			    0111		    7
-    //Hail Request			    1000		    8
-    //Hail Acknowledge		    1001		    9
-    //Pre-set Dim (1)		    1010		    A
-    //Pre-set Dim (2)		    1011		    B
-    //Extended Data Transfer    1100		    C
-    //Status On                 1101		    D
-    //Status Off                1110		    E
-    //Status Request            1111		    F
-//from https://github.com/king-dopey/pytomation/blob/master/pytomation/interfaces/cm11a.py
-
 namespace firecracker
 {
     class FirecrackerSerialPort : UnmanagedSerialPort //SerialPort
