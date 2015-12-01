@@ -81,6 +81,10 @@
         <div id="A_Dim" class="button">Dim</div>
         <div id="A_Bright" class="button">Bright</div>
     </div>
+    <div class="console-row">
+        <div class="console-text">Reset</div>
+        <div id="Reset" class="button">Reset</div>
+    </div>
 </div>
 <br />
 <div id="status">
@@ -130,5 +134,6 @@
         $("#Lamps_Off").click(function () { executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "lampsoff" }) });
         $("#A_Dim").click(function () { executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "dim" }) });
         $("#A_Bright").click(function () { executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "bright" }) });
+        $("#Reset").click(function () { executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "reset" }) });
     });
 </script>

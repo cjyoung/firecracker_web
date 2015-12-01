@@ -38,11 +38,18 @@ namespace firecracker
 
         public void SendCommand(House house, int moduleNumber, ModuleState state)
         {
-            byte[] a1on = GetBytesForModule(house, moduleNumber, state);
-            SendHeader();
-            SendByte(a1on[0]);
-            SendByte(a1on[1]);
-            SendFooter();
+            if (state == ModuleState.Reset)
+            {
+                Reset();
+            }
+            else
+            {
+                byte[] a1on = GetBytesForModule(house, moduleNumber, state);
+                SendHeader();
+                SendByte(a1on[0]);
+                SendByte(a1on[1]);
+                SendFooter();
+            }
         }
 
         private void Reset()
@@ -158,7 +165,8 @@ namespace firecracker
             AllOff = 0x80,
             LampsOn = 0x94,
             LampsOff = 0x84,
-            Pause = 0x20
+            Pause = 0x20,
+            Reset
         }
 
         public enum House
