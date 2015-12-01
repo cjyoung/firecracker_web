@@ -23,10 +23,10 @@
         cursor: pointer;
     }
 
-    .console-text{
-       vertical-align:middle;
-       font-weight: bold;
-       padding:5px;
+    .console-text {
+        vertical-align: middle;
+        font-weight: bold;
+        padding: 5px;
     }
 
     .console {
@@ -38,6 +38,16 @@
         .console div {
             display: inline-block;
         }
+
+    #status{
+        border: 1px #000 solid;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .count0{
+        background-color: white;
+    }
 </style>
 
 <div class="console">
@@ -52,14 +62,41 @@
         <div id="A2_On" class="button">On</div>
     </div>
     <div class="console-row">
-        <div class="console-text">TBD</div>
+        <div class="console-text">Bedroom Lamp</div>
         <div id="A3_Off" class="button">Off</div>
         <div id="A3_On" class="button">On</div>
     </div>
+    <div class="console-row">
+        <div class="console-text">All</div>
+        <div id="All_Off" class="button">Off</div>
+        <div id="All_On" class="button">On</div>
+    </div>
+    <div class="console-row">
+        <div class="console-text">Lamps</div>
+        <div id="Lamps_Off" class="button">Off</div>
+        <div id="Lamps_On" class="button">On</div>
+    </div>
+    <div class="console-row">
+        <div class="console-text">Dimmer</div>
+        <div id="A_Dim" class="button">Dim</div>
+        <div id="A_Bright" class="button">Bright</div>
+    </div>
+</div>
+<br />
+<div id="status">
+    <i>Executed commands will appear here</i>
 </div>
 
 <script language="javascript">
+    var commandCount = 0;
+
     function executeAction(jsonToSend) {
+        commandCount++;
+        $("#status").html("<pre class=\"count" + commandCount % 2 + "\">"
+                                        + jsonToSend.houseInput
+                                        + jsonToSend.moduleInput + ":"
+                                        + jsonToSend.moduleAction 
+                                        + "</pre>" + $("#status").html());
         $.ajax({
             url: '@Url.Action("Execute", "Firecracker")',
             type: 'GET',
@@ -69,23 +106,29 @@
             cache: false,
             data: jsonToSend,
             success:
-                function() {
+                function () {
                     alert('we did it!');
                 }
-                
-                /*function (person) {
-                $('#FirstName').val(person.FirstName);
-                $('#LastName').val(person.LastName);
-            }*/
+
+            /*function (person) {
+            $('#FirstName').val(person.FirstName);
+            $('#LastName').val(person.LastName);
+        }*/
         });
     }
 
-    $(function() {
-        $("#A1_On").click(function() {executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "on" })});
-        $("#A1_Off").click(function(){executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "off" })});
-        $("#A2_On").click(function(){executeAction({ houseInput: "A", moduleInput: "2", moduleAction: "on" })});
-        $("#A2_Off").click(function(){executeAction({ houseInput: "A", moduleInput: "2", moduleAction: "off" })});
-        $("#A3_On").click(function(){executeAction({ houseInput: "A", moduleInput: "3", moduleAction: "on" })});
-        $("#A3_Off").click(function() { executeAction({ houseInput: "A", moduleInput: "3", moduleAction: "off" })});
+    $(function () {
+        $("#A1_On").click(function () { executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "on" }) });
+        $("#A1_Off").click(function () { executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "off" }) });
+        $("#A2_On").click(function () { executeAction({ houseInput: "A", moduleInput: "2", moduleAction: "on" }) });
+        $("#A2_Off").click(function () { executeAction({ houseInput: "A", moduleInput: "2", moduleAction: "off" }) });
+        $("#A3_On").click(function () { executeAction({ houseInput: "A", moduleInput: "3", moduleAction: "on" }) });
+        $("#A3_Off").click(function () { executeAction({ houseInput: "A", moduleInput: "3", moduleAction: "off" }) });
+        $("#All_On").click(function () { executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "allon" }) });
+        $("#All_Off").click(function () { executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "alloff" }) });
+        $("#Lamps_On").click(function () { executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "lampson" }) });
+        $("#Lamps_Off").click(function () { executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "lampsoff" }) });
+        $("#A_Dim").click(function () { executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "dim" }) });
+        $("#A_Bright").click(function () { executeAction({ houseInput: "A", moduleInput: "1", moduleAction: "bright" }) });
     });
 </script>
